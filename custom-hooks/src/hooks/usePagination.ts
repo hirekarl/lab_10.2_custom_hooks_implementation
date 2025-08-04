@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import type { PaginationState } from "../types"
 
 export default function usePagination(
@@ -5,21 +6,40 @@ export default function usePagination(
   itemsPerPage: number = 10,
   initialPage: number = 1
 ): PaginationState {
-  console.log(totalItems)
-  console.log(itemsPerPage)
-  console.log(initialPage)
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+  const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const [canNextPage, setCanNextPage] = useState<boolean>(false)
+  const [canPrevPage, setCanPrevPage] = useState<boolean>(false)
+
+  useEffect(() => {
+    setCanPrevPage(currentPage > 1)
+    setCanNextPage(currentPage < totalPages)
+  }, [currentPage, totalPages])
+
+  function goToPageNumber(pageNumber: number): void {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber)
+    }
+  }
+
+  function goToNextPage(): void {
+    if (canNextPage) setCurrentPage((prevCurrentPage) => prevCurrentPage + 1)
+  }
+
+  function goToPrevPage(): void {
+    if (canPrevPage) setCurrentPage((prevCurrentPage) => prevCurrentPage - 1)
+  }
 
   return {
-    currentPage: 0,
-    totalPages: 0,
+    currentPage: currentPage,
+    totalPages: totalPages,
     startIndex: 0,
     endIndex: 0,
     itemsOnCurrentPage: 0,
-    setPage: (pageNumber: number) => {
-      console.log(pageNumber)
-    },
-    nextPage: () => {},
-    prevPage: () => {},
+    setPage: goToPageNumber,
+    nextPage: goToNextPage,
+    prevPage: goToPrevPage,
     canNextPage: false,
     canPrevPage: false,
   }

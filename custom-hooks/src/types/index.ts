@@ -10,4 +10,3 @@ export interface PaginationState {
     canNextPage: boolean
     canPrevPage: boolean
   }
-  
