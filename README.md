@@ -30,6 +30,6 @@ This lab will challenge you to think about hook design, state management within 
 
 ### Implementation Guidelines
 - **Hook Design**: Strive for clarity and reusability in your hook’s API.
-- **State Management**: Use useState appropriately within your hooks.
-- **Side Effects**: Use useEffect for any side effects. Ensure correct dependency arrays and cleanup functions.
+- **State Management**: Use `useState` appropriately within your hooks.
+- **Side Effects**: Use `useEffect` for any side effects. Ensure correct dependency arrays and cleanup functions.
 - **TypeScript** (*Optional but Recommended*): If you are comfortable with TypeScript, try to type your hook inputs and return values for better self-documentation and safety.
