@@ -18,8 +18,8 @@ export default function BottomBar({
     pageNumbers.push(i)
   }
 
-  function handlePageChange(event: React.MouseEvent): void {
-    const button = event.target as HTMLButtonElement
+  function handlePageChange(event: React.MouseEvent<HTMLButtonElement>): void {
+    const button = event.currentTarget
     const pageNumber = parseInt(button.dataset.id as string)
     setPage(pageNumber)
   }
@@ -30,10 +30,10 @@ export default function BottomBar({
         key={pageNumber}
         data-id={pageNumber}
         type="button"
-        className={`btn btn-primary ${
+        className={`btn btn-primary btn-sm ${
           pageNumber === currentPage ? "active" : ""
         }`}
-        style={{ maxWidth: "2.5rem" }}
+        style={{ width: "2rem" }}
         onClick={handlePageChange}>
         {pageNumber}
       </button>
