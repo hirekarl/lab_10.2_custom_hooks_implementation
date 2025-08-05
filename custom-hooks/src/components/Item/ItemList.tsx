@@ -12,5 +12,9 @@ export default function ItemList({
         items.indexOf(item) >= startIndex && items.indexOf(item) <= endIndex
     )
     .map((item) => <Item key={items.indexOf(item)} item={item} />)
-  return <ol className="list-group mb-3">{listItems}</ol>
+  return (
+    <div style={{maxHeight: "50dvh", overflow: "auto"}} className="mb-3">
+      <ol className="list-group mb-3">{listItems}</ol>
+    </div>
+  )
 }

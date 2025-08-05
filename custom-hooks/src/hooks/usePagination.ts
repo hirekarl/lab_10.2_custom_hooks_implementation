@@ -24,13 +24,6 @@ export default function usePagination(
 
   const { totalPages } = state
 
-  // const calculateTotalPages = useCallback((): void => {
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     totalPages: Math.ceil(totalItems / state.itemsPerPage)
-  //   }))
-  // }, [totalItems, state.itemsPerPage])
-
   const goToNextPage = useCallback((): void => {
     setState((prevState) => {
       const nextPage = prevState.currentPage + 1

@@ -33,6 +33,7 @@ export default function BottomBar({
         className={`btn btn-primary ${
           pageNumber === currentPage ? "active" : ""
         }`}
+        style={{maxWidth: "2.5rem"}}
         onClick={handlePageChange}>
         {pageNumber}
       </button>
@@ -66,7 +67,7 @@ export default function BottomBar({
       </div>
       <div className="d-flex justify-content-around mb-1">
         <div className="mb-3">
-          Showing items {startIndex + 1} – {endIndex + 1} (Total on this page:{" "}
+          Showing items {startIndex + 1}&ndash;{endIndex + 1} (Total on this page:{" "}
           {itemsOnCurrentPage})
         </div>
       </div>

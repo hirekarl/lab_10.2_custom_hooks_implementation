@@ -5,8 +5,6 @@ import usePagination from "../../hooks/usePagination"
 import { dukesMayoFacts } from "../../data/dukesMayoFacts"
 
 export default function PaginationDemo() {
-  // const items: dukesMayoFacts
-
   const totalItems = dukesMayoFacts.length
   const initialItemsPerPage = 10
   const initialPage = 1
