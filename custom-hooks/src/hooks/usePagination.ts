@@ -1,46 +1,94 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import type { PaginationState } from "../types"
 
 export default function usePagination(
   totalItems: number,
   itemsPerPage: number = 10,
   initialPage: number = 1
-): PaginationState {
+) {
   const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-  const [currentPage, setCurrentPage] = useState<number>(initialPage)
-  const [canNextPage, setCanNextPage] = useState<boolean>(false)
-  const [canPrevPage, setCanPrevPage] = useState<boolean>(false)
-
-  useEffect(() => {
-    setCanPrevPage(currentPage > 1)
-    setCanNextPage(currentPage < totalPages)
-  }, [currentPage, totalPages])
-
-  function goToPageNumber(pageNumber: number): void {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber)
-    }
-  }
-
-  function goToNextPage(): void {
-    if (canNextPage) setCurrentPage((prevCurrentPage) => prevCurrentPage + 1)
-  }
-
-  function goToPrevPage(): void {
-    if (canPrevPage) setCurrentPage((prevCurrentPage) => prevCurrentPage - 1)
-  }
-
-  return {
-    currentPage: currentPage,
-    totalPages: totalPages,
+  const [state, setState] = useState<PaginationState>({
+    currentPage: initialPage,
+    totalPages,
     startIndex: 0,
     endIndex: 0,
     itemsOnCurrentPage: 0,
-    setPage: goToPageNumber,
-    nextPage: goToNextPage,
-    prevPage: goToPrevPage,
+    setPage: () => {},
+    nextPage: () => {},
+    prevPage: () => {},
     canNextPage: false,
     canPrevPage: false,
-  }
+  })
+
+  const goToNextPage = useCallback((): void => {
+    setState((prevState) => {
+      const nextPage = prevState.currentPage + 1
+      if (nextPage <= totalPages) {
+        return { ...prevState, currentPage: nextPage }
+      }
+      return prevState
+    })
+  }, [totalPages])
+
+  const goToPrevPage = useCallback((): void => {
+    setState((prevState) => {
+      const prevPage = prevState.currentPage - 1
+      if (prevPage >= 1) {
+        return { ...prevState, currentPage: prevPage }
+      }
+      return prevState
+    })
+  }, [])
+
+  const goToPageNumber = useCallback(
+    (pageNumber: number): void => {
+      if (pageNumber >= 1 && pageNumber <= totalPages) {
+        setState((prevState) => ({
+          ...prevState,
+          currentPage: pageNumber,
+        }))
+      }
+    },
+    [totalPages]
+  )
+
+  useEffect(() => {
+    const startIndex = itemsPerPage * (state.currentPage - 1)
+    const endIndex =
+      state.currentPage < totalPages
+        ? state.currentPage * itemsPerPage - 1
+        : totalItems - 1
+    const itemsOnCurrentPage =
+      state.currentPage === totalPages
+        ? totalItems - itemsPerPage * (state.currentPage - 1)
+        : itemsPerPage
+    const canNextPage = state.currentPage < totalPages
+    const canPrevPage = state.currentPage > 1
+
+    setState((prevState) => ({
+      ...prevState,
+      startIndex,
+      endIndex,
+      itemsOnCurrentPage,
+      canNextPage,
+      canPrevPage,
+      setPage: goToPageNumber,
+      nextPage: goToNextPage,
+      prevPage: goToPrevPage,
+    }))
+  }, [
+    state.currentPage,
+    itemsPerPage,
+    totalItems,
+    totalPages,
+    goToNextPage,
+    goToPrevPage,
+    goToPageNumber,
+  ])
+
+  return [state, setState] as [
+    PaginationState,
+    React.Dispatch<React.SetStateAction<PaginationState>>
+  ]
 }
