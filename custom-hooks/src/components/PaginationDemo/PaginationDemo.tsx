@@ -22,19 +22,7 @@ export default function PaginationDemo() {
     }))
   }
 
-  const {
-    itemsPerPage,
-    startIndex,
-    endIndex,
-    currentPage,
-    totalPages,
-    itemsOnCurrentPage,
-    canPrevPage,
-    prevPage,
-    canNextPage,
-    nextPage,
-    setPage,
-  } = state
+  const { itemsPerPage, startIndex, endIndex } = state
 
   return (
     <div className="container-fluid mb-3">
@@ -53,19 +41,7 @@ export default function PaginationDemo() {
             endIndex={endIndex}
             items={dukesMayoFacts}
           />
-          <BottomBar
-            currentPage={currentPage}
-            totalPages={totalPages}
-            itemsPerPage={itemsPerPage}
-            itemsOnCurrentPage={itemsOnCurrentPage}
-            canPrevPage={canPrevPage}
-            prevPage={prevPage}
-            canNextPage={canNextPage}
-            nextPage={nextPage}
-            setPage={setPage}
-            startIndex={startIndex}
-            endIndex={endIndex}
-          />
+          <BottomBar {...state} />
         </div>
       </div>
     </div>
