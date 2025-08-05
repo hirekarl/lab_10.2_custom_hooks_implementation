@@ -27,3 +27,9 @@ export type ItemProps = {
 export type ItemListProps = UIProps & {
   items: Item[]
 }
+
+export type TopBarProps = {
+  totalItems: number
+  itemsPerPage: number
+  onChangeItemsPerPage: (newItemsPerPage: number) => void
+}

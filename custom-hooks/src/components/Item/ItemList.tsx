@@ -14,7 +14,7 @@ export default function ItemList({
   const listItems = items
     .filter(
       (item) =>
-        items.indexOf(item) >= startIndex && items.indexOf(item) < endIndex
+        items.indexOf(item) >= startIndex && items.indexOf(item) <= endIndex
     )
     .map((item) => <Item key={items.indexOf(item)} item={item} />)
   return <ol>{listItems}</ol>

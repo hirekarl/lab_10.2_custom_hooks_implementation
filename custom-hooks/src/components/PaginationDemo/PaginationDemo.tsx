@@ -13,23 +13,9 @@ export default function PaginationDemo() {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const initialPage = 1
 
-  // const [pagination, setPagination] = usePagination(
-  //   totalItems,
-  //   itemsPerPage,
-  //   initialPage
-  // )
-  // const {
-  //   currentPage,
-  //   totalPages,
-  //   startIndex,
-  //   endIndex,
-  //   itemsOnCurrentPage,
-  //   setPage,
-  //   nextPage,
-  //   prevPage,
-  //   canNextPage,
-  //   canPrevPage,
-  // } = pagination
+  function handleChangeItemsPerPage(newItemsPerPage: number): void {
+    setItemsPerPage(newItemsPerPage)
+  }
 
   return (
     <>
@@ -37,7 +23,7 @@ export default function PaginationDemo() {
       <TopBar
         totalItems={totalItems}
         itemsPerPage={itemsPerPage}
-        initialPage={initialPage}
+        onChangeItemsPerPage={handleChangeItemsPerPage}
       />
       <ItemList
         totalItems={totalItems}
