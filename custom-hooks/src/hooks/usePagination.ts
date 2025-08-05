@@ -5,7 +5,7 @@ export default function usePagination(
   totalItems: number,
   initialItemsPerPage: number = 10,
   initialPage: number = 1
-) {
+): [PaginationState, React.Dispatch<React.SetStateAction<PaginationState>>] {
   const initialTotalPages = Math.ceil(totalItems / initialItemsPerPage)
 
   const [state, setState] = useState<PaginationState>({
@@ -95,8 +95,5 @@ export default function usePagination(
     goToPageNumber,
   ])
 
-  return [state, setState] as [
-    PaginationState,
-    React.Dispatch<React.SetStateAction<PaginationState>>
-  ]
+  return [state, setState]
 }

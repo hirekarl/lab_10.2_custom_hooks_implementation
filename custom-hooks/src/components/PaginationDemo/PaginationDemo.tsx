@@ -22,40 +22,52 @@ export default function PaginationDemo() {
     }))
   }
 
+  const {
+    itemsPerPage,
+    startIndex,
+    endIndex,
+    currentPage,
+    totalPages,
+    itemsOnCurrentPage,
+    canPrevPage,
+    prevPage,
+    canNextPage,
+    nextPage,
+    setPage,
+  } = state
+
   return (
-    <>
-      <div className="container-fluid mb-3">
-        <div className="row">
-          <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1 border rounded-3 p-3">
-            <div className="d-flex justify-content-around align-items-center mb-3">
-              <h2>Pagination Demo</h2>
-            </div>
-            <TopBar
-              totalItems={totalItems}
-              itemsPerPage={state.itemsPerPage}
-              onChangeItemsPerPage={handleChangeItemsPerPage}
-            />
-            <ItemList
-              startIndex={state.startIndex}
-              endIndex={state.endIndex}
-              items={dukesMayoFacts}
-            />
-            <BottomBar
-              currentPage={state.currentPage}
-              totalPages={state.totalPages}
-              itemsPerPage={state.itemsPerPage}
-              itemsOnCurrentPage={state.itemsOnCurrentPage}
-              canPrevPage={state.canPrevPage}
-              prevPage={state.prevPage}
-              canNextPage={state.canNextPage}
-              nextPage={state.nextPage}
-              setPage={state.setPage}
-              startIndex={state.startIndex}
-              endIndex={state.endIndex}
-            />
+    <div className="container-fluid mb-3">
+      <div className="row">
+        <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1 border rounded-3 p-3">
+          <div className="text-center mb-3">
+            <h2>Pagination Demo</h2>
           </div>
+          <TopBar
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onChangeItemsPerPage={handleChangeItemsPerPage}
+          />
+          <ItemList
+            startIndex={startIndex}
+            endIndex={endIndex}
+            items={dukesMayoFacts}
+          />
+          <BottomBar
+            currentPage={currentPage}
+            totalPages={totalPages}
+            itemsPerPage={itemsPerPage}
+            itemsOnCurrentPage={itemsOnCurrentPage}
+            canPrevPage={canPrevPage}
+            prevPage={prevPage}
+            canNextPage={canNextPage}
+            nextPage={nextPage}
+            setPage={setPage}
+            startIndex={startIndex}
+            endIndex={endIndex}
+          />
         </div>
       </div>
-    </>
+    </div>
   )
 }
