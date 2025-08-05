@@ -1,38 +1,55 @@
+import { useState } from "react"
 import TopBar from "../TopBar/TopBar"
 import ItemList from "../Item/ItemList"
 import BottomBar from "../BottomBar/BottomBar"
-import usePagination from "../../hooks/usePagination"
 
 export default function PaginationDemo() {
-  const [pagination, setPagination] = usePagination(100)
-  const {
-    currentPage,
-    totalPages,
-    startIndex,
-    endIndex,
-    itemsOnCurrentPage,
-    setPage,
-    nextPage,
-    prevPage,
-    canNextPage,
-    canPrevPage,
-  } = pagination
+  const items: string[] = []
+  for (let i = 1; i <= 123; i++) {
+    items.push(`Item ${i}`)
+  }
+
+  const totalItems = items.length
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+  const initialPage = 1
+
+  // const [pagination, setPagination] = usePagination(
+  //   totalItems,
+  //   itemsPerPage,
+  //   initialPage
+  // )
+  // const {
+  //   currentPage,
+  //   totalPages,
+  //   startIndex,
+  //   endIndex,
+  //   itemsOnCurrentPage,
+  //   setPage,
+  //   nextPage,
+  //   prevPage,
+  //   canNextPage,
+  //   canPrevPage,
+  // } = pagination
 
   return (
     <>
       <h2>Pagination Demo</h2>
-      <ul>
-        <li>Current Page: {currentPage}</li>
-        <li>Total Pages: {totalPages}</li>
-        <li>Start Index: {startIndex}</li>
-        <li>End Index: {endIndex}</li>
-        <li>Items on Current Page: {itemsOnCurrentPage}</li>
-        <li>Can Next Page?: {String(canNextPage)}</li>
-        <li>Can Prev Page?: {String(canPrevPage)}</li>
-      </ul>
-      <TopBar />
-      <ItemList />
-      <BottomBar />
+      <TopBar
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        initialPage={initialPage}
+      />
+      <ItemList
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        initialPage={initialPage}
+        items={items}
+      />
+      <BottomBar
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        initialPage={initialPage}
+      />
     </>
   )
 }

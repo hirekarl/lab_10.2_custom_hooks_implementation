@@ -1,5 +1,5 @@
-export default function Item() {
-  return (
-    <h4>Item</h4>
-  )
+import type { ItemProps } from "../../types"
+
+export default function Item({ item }: ItemProps) {
+  return <li>{item}</li>
 }

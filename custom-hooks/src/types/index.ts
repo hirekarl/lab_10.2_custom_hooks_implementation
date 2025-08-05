@@ -1,4 +1,4 @@
-export interface PaginationState {
+export type PaginationState = {
   currentPage: number
   totalPages: number
   startIndex: number
@@ -11,8 +11,19 @@ export interface PaginationState {
   canPrevPage: boolean
 }
 
-export interface usePaginationProps {
+export type UIProps = {
   totalItems: number
   itemsPerPage?: number
   initialPage?: number
+}
+
+export type Item = string
+
+export type ItemProps = {
+  key: number
+  item: Item
+}
+
+export type ItemListProps = UIProps & {
+  items: Item[]
 }
