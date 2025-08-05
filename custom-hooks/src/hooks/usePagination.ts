@@ -57,27 +57,30 @@ export default function usePagination(
   )
 
   useEffect(() => {
-    const totalPages = Math.ceil(totalItems / state.itemsPerPage)
-    const startIndex = state.itemsPerPage * (state.currentPage - 1)
-    const endIndex =
-      state.currentPage < totalPages
+    const newTotalPages = Math.ceil(totalItems / state.itemsPerPage)
+    const newStartIndex = state.itemsPerPage * (state.currentPage - 1)
+    const newCurrentPage =
+      state.currentPage > newTotalPages ? newTotalPages : state.currentPage
+    const newEndIndex =
+      state.currentPage < newTotalPages
         ? state.currentPage * state.itemsPerPage - 1
         : totalItems - 1
-    const itemsOnCurrentPage =
-      state.currentPage === totalPages
+    const newItemsOnCurrentPage =
+      state.currentPage === newTotalPages
         ? totalItems - state.itemsPerPage * (state.currentPage - 1)
         : state.itemsPerPage
-    const canNextPage = state.currentPage < totalPages
-    const canPrevPage = state.currentPage > 1
+    const newCanNextPage = state.currentPage < newTotalPages
+    const newCanPrevPage = state.currentPage > 1
 
     setState((prevState) => ({
       ...prevState,
-      totalPages,
-      startIndex,
-      endIndex,
-      itemsOnCurrentPage,
-      canNextPage,
-      canPrevPage,
+      totalPages: newTotalPages,
+      startIndex: newStartIndex,
+      currentPage: newCurrentPage,
+      endIndex: newEndIndex,
+      itemsOnCurrentPage: newItemsOnCurrentPage,
+      canNextPage: newCanNextPage,
+      canPrevPage: newCanPrevPage,
       setPage: goToPageNumber,
       nextPage: goToNextPage,
       prevPage: goToPrevPage,
