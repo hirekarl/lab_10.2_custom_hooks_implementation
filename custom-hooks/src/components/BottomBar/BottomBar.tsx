@@ -1,5 +1,5 @@
 import React from "react"
-import type { BottomBarProps } from "../../types"
+import type { Pagination } from "../../types"
 
 export default function BottomBar({
   currentPage,
@@ -12,7 +12,7 @@ export default function BottomBar({
   setPage,
   startIndex,
   endIndex,
-}: BottomBarProps) {
+}: Pagination) {
   const pageNumbers = []
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i)
@@ -33,7 +33,7 @@ export default function BottomBar({
         className={`btn btn-primary ${
           pageNumber === currentPage ? "active" : ""
         }`}
-        style={{maxWidth: "2.5rem"}}
+        style={{ maxWidth: "2.5rem" }}
         onClick={handlePageChange}>
         {pageNumber}
       </button>
@@ -67,13 +67,18 @@ export default function BottomBar({
       </div>
       <div className="d-flex justify-content-around mb-1">
         <div className="mb-3">
-          Showing items {startIndex + 1}&ndash;{endIndex + 1} (Total on this page:{" "}
-          {itemsOnCurrentPage})
+          Showing items {startIndex + 1}&ndash;{endIndex + 1} (Total on this
+          page: {itemsOnCurrentPage})
         </div>
       </div>
 
       <div className="d-flex justify-content-around mb-1">
-        <div className="btn-group">{pageButtons}</div>
+        <div
+          className="btn-group"
+          role="group"
+          aria-label="Navigate to page buttons.">
+          {pageButtons}
+        </div>
       </div>
     </>
   )

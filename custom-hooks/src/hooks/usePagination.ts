@@ -3,8 +3,8 @@ import type { Pagination } from "../types"
 
 export default function usePagination(
   totalItems: number,
-  initialItemsPerPage: number = 10,
-  initialPage: number = 1
+  initialItemsPerPage: number,
+  initialPage: number
 ): [Pagination, React.Dispatch<React.SetStateAction<Pagination>>] {
   const initialTotalPages = Math.ceil(totalItems / initialItemsPerPage)
 
