@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react"
-import type { PaginationState } from "../types"
+import type { Pagination } from "../types"
 
 export default function usePagination(
   totalItems: number,
   initialItemsPerPage: number = 10,
   initialPage: number = 1
-): [PaginationState, React.Dispatch<React.SetStateAction<PaginationState>>] {
+): [Pagination, React.Dispatch<React.SetStateAction<Pagination>>] {
   const initialTotalPages = Math.ceil(totalItems / initialItemsPerPage)
 
-  const [state, setState] = useState<PaginationState>({
+  const [state, setState] = useState<Pagination>({
     currentPage: initialPage,
     itemsPerPage: initialItemsPerPage,
     totalPages: initialTotalPages,
