@@ -13,7 +13,7 @@ export default function ItemList({
     )
     .map((item) => <Item key={items.indexOf(item)} item={item} />)
   return (
-    <div style={{maxHeight: "50dvh", overflow: "auto"}} className="mb-3">
+    <div style={{height: "50dvh", overflowY: "auto"}} className="mb-3">
       <ol className="list-group mb-3">{listItems}</ol>
     </div>
   )
