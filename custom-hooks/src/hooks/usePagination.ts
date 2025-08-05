@@ -3,14 +3,15 @@ import type { PaginationState } from "../types"
 
 export default function usePagination(
   totalItems: number,
-  itemsPerPage: number = 10,
+  initialItemsPerPage: number = 10,
   initialPage: number = 1
 ) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  const initialTotalPages = Math.ceil(totalItems / initialItemsPerPage)
 
   const [state, setState] = useState<PaginationState>({
     currentPage: initialPage,
-    totalPages,
+    itemsPerPage: initialItemsPerPage,
+    totalPages: initialTotalPages,
     startIndex: 0,
     endIndex: 0,
     itemsOnCurrentPage: 0,
@@ -20,6 +21,15 @@ export default function usePagination(
     canNextPage: false,
     canPrevPage: false,
   })
+
+  const { totalPages } = state
+
+  // const calculateTotalPages = useCallback((): void => {
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     totalPages: Math.ceil(totalItems / state.itemsPerPage)
+  //   }))
+  // }, [totalItems, state.itemsPerPage])
 
   const goToNextPage = useCallback((): void => {
     setState((prevState) => {
@@ -54,20 +64,22 @@ export default function usePagination(
   )
 
   useEffect(() => {
-    const startIndex = itemsPerPage * (state.currentPage - 1)
+    const totalPages = Math.ceil(totalItems / state.itemsPerPage)
+    const startIndex = state.itemsPerPage * (state.currentPage - 1)
     const endIndex =
       state.currentPage < totalPages
-        ? state.currentPage * itemsPerPage - 1
+        ? state.currentPage * state.itemsPerPage - 1
         : totalItems - 1
     const itemsOnCurrentPage =
       state.currentPage === totalPages
-        ? totalItems - itemsPerPage * (state.currentPage - 1)
-        : itemsPerPage
+        ? totalItems - state.itemsPerPage * (state.currentPage - 1)
+        : state.itemsPerPage
     const canNextPage = state.currentPage < totalPages
     const canPrevPage = state.currentPage > 1
 
     setState((prevState) => ({
       ...prevState,
+      totalPages,
       startIndex,
       endIndex,
       itemsOnCurrentPage,
@@ -79,7 +91,7 @@ export default function usePagination(
     }))
   }, [
     state.currentPage,
-    itemsPerPage,
+    state.itemsPerPage,
     totalItems,
     totalPages,
     goToNextPage,

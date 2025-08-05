@@ -14,8 +14,8 @@ export default function TopBar({
   }
 
   return (
-    <div className="d-flex justify-content-between">
-      <div className="input-group w-25">
+    <div className="d-flex justify-content-between mb-3">
+      <div className="input-group w-50">
         <label htmlFor="items-per-page-select" className="input-group-text">
           Items per page
         </label>
@@ -24,10 +24,10 @@ export default function TopBar({
           className="form-select"
           onChange={handleItemsPerPageSelectChange}
           value={itemsPerPage}>
-          <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
           <option value="20">20</option>
+          <option value="25">25</option>
         </select>
       </div>
       <div>Total Items: {totalItems}</div>
